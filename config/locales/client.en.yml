@@ -1,0 +1,19 @@
+en:
+  js:
+    new_topic_form:
+      admin:
+        nav_label: "New Topic Form"
+        save: "Save"
+        reset: "Reset"
+        delete: "Delete"
+        enabled: "Enabled"
+        apply_to_subcategories: "Apply to subcategories"
+        add_field: "Add Field"
+        delete_field: "Delete Field"
+        select_category: "Select category"
+        label: "Label"
+        type: "Type"
+        unique_id: "Unique ID"
+        required: "Required"
+        options: "Options (comma delimited)"
+        regex: "Regex"

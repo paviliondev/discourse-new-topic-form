@@ -1,0 +1,59 @@
+<span class="ntf-remove-field" {{action "removeField"}} title={{i18n "new_topic_form.admin.delete_field"}}>
+  {{d-icon "times"}}
+</span>
+
+<div class="ntf-row">
+  <label>
+    {{i18n "new_topic_form.admin.unique_id"}}
+  </label>
+
+  {{input type="text" value=model.id}}
+</div>
+
+<div class="ntf-row">
+  <label>
+    {{i18n "new_topic_form.admin.label"}}
+  </label>
+
+  {{input type="text" value=model.label}}
+</div>
+
+<div class="ntf-row">
+  <label>
+    {{i18n "new_topic_form.admin.required"}}
+  </label>
+
+  {{input type="checkbox" checked=model.required}}
+</div>
+
+<div class="ntf-row">
+  <label>
+    {{i18n "new_topic_form.admin.type"}}
+  </label>
+
+  <select onchange={{action (mut model.type) value="target.value"}}>
+    {{#each validTypes as |type|}}
+      <option value={{type}} selected={{ntf-eq model.type type}}>{{type}}</option>
+    {{/each}}
+  </select>
+</div>
+
+{{#if (ntf-eq model.type "text")}}
+  <div class="ntf-row">
+    <label>
+      {{i18n "new_topic_form.admin.regex"}}
+    </label>
+
+    {{input type="text" value=model.regex}}
+  </div>
+{{/if}}
+
+{{#if (ntf-eq model.type "dropdown")}}
+  <div class="ntf-row">
+    <label>
+      {{i18n "new_topic_form.admin.options"}}
+    </label>
+
+    {{input type="text" value=model.options}}
+  </div>
+{{/if}}

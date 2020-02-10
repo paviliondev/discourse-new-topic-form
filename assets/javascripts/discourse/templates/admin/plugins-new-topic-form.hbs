@@ -1,0 +1,81 @@
+{{d-section pageClass="new-topic-form-setting"}}
+
+{{#conditional-loading-spinner condition=loading}}
+  <div class="ntf-header">
+    <div class="categories-container">
+      {{category-chooser
+        value=categoryId
+        options=(hash
+                  allowUncategorized=true
+                  none="new_topic_form.admin.select_category"
+                )
+        onChange=(action (mut categoryId))
+      }}
+
+      {{#if form}}
+        <div class="ntf-checkboxes">
+          <label class="checkbox-label">
+            {{input
+              type="checkbox"
+              checked=form.enabled
+            }}
+
+            {{i18n "new_topic_form.admin.enabled"}}
+          </label>
+
+          <label class="checkbox-label">
+            {{input
+              type="checkbox"
+              checked=form.apply_to_subcategories
+            }}
+
+            {{i18n "new_topic_form.admin.apply_to_subcategories"}}
+          </label>
+        </div>
+      {{/if}}
+    </div>
+
+    {{#if form}}
+      <div class="btn-container">
+        {{d-button label="new_topic_form.admin.save"
+          class="btn-primary btn-large"
+          icon="far-save"
+          action=(action "save")
+        }}
+
+        {{d-button label="new_topic_form.admin.reset"
+          class="btn-default btn-large"
+          icon="redo"
+          action=(action "reset")
+        }}
+
+        {{d-button label="new_topic_form.admin.delete"
+          class="btn-danger btn-large"
+          icon="times"
+          action=(action "delete")
+        }}
+      </div>
+    {{/if}}
+  </div>
+
+  {{#if form}}
+    {{#if form.fields}}
+      <div class="ntf-fields">
+        {{#each form.fields as |field|}}
+          {{ntf-setting-field
+            model=field
+            removeField=(action "removeField")
+          }}
+        {{/each}}
+      </div>
+    {{/if}}
+
+    <div class="ntf-footer">
+      {{d-button label="new_topic_form.admin.add_field"
+        class="btn-primary"
+        icon="plus"
+        action=(action "addField")
+      }}
+    </div>
+  {{/if}}
+{{/conditional-loading-spinner}}

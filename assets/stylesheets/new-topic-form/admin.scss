@@ -1,0 +1,62 @@
+.new-topic-form-setting-page {
+  .ntf-header {
+    display: flex;
+    align-items: baseline;
+  }
+
+  .ntf-footer {
+    margin-top: 1em;
+  }
+
+  .categories-container {
+    flex: 1;
+  }
+
+  .ntf-checkboxes {
+    margin: 1em 0;
+    display: flex;
+
+    label {
+      margin-right: 1em;
+    }
+  }
+
+  .ntf-field {
+    border-top: 1px solid $primary-low;
+    padding: 1em;
+    background-color: $primary-very-low;
+
+    .ntf-row {
+      display: flex;
+      align-items: center;
+      width: 90%;
+
+      label {
+        width: 175px;
+        font-size: 90%;
+      }
+
+      input {
+        margin-bottom: 9px;
+      }
+    }
+
+    &:hover {
+      .ntf-remove-field {
+        visibility: visible;
+      }
+    }
+  }
+
+  .ntf-remove-field {
+    visibility: hidden;
+    font-size: 1.5em;
+    color: $primary-medium;
+    float: right;
+    cursor: pointer;
+
+    &:hover {
+      color: $primary-high;
+    }
+  }
+}

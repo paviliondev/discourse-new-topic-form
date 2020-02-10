@@ -1,0 +1,4 @@
+plugins:
+  new_topic_form_enabled:
+    default: true
+    client: true
