@@ -1,0 +1,47 @@
+.new-topic-form-composer-page {
+  .new-topic-form {
+    label {
+      font-weight: 600;
+    }
+
+    .ntf-form-field {
+      margin-bottom: 7px;
+      position: relative;
+    }
+
+    .d-editor {
+      height: 125px;
+    }
+
+    input[type='text'], select {
+      width: 50%;
+    }
+
+    select {
+      border-color: $primary-medium;
+    }
+
+    input[type='text'].ntf-user-selector {
+      width: 100%;
+    }
+
+    .date-input {
+      width: 100%;
+    }
+
+    .ntf-error {
+      color: $danger;
+      font-size: 90%;
+    }
+
+    .ntf-upload-result {
+      margin-top: 10px;
+      display: block;
+    }
+
+    .ntf-upload-img-preview {
+      width: 125px;
+      height: auto;
+    }
+  }
+}

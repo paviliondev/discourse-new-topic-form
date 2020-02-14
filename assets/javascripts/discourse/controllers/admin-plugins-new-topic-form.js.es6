@@ -1,4 +1,4 @@
-import discourseComputed, { observes } from "discourse-common/utils/decorators";
+import discourseComputed from "discourse-common/utils/decorators";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
 
@@ -23,7 +23,7 @@ export default Ember.Controller.extend({
 
   actions: {
     save() {
-      this.request("PUT", true);
+      if (this.isValid()) this.request("PUT", true);
     },
 
     reset() {
@@ -36,12 +36,14 @@ export default Ember.Controller.extend({
 
     addField() {
       const field = {
-        id: null,
-        label: null,
+        id: "",
+        label: "",
         type: "text",
         required: false,
-        options: null,
-        regex: null
+        options: "",
+        regexp: "",
+        regexp_flags: "",
+        placeholder: ""
       };
 
       this.get("form.fields").addObject(field);
@@ -71,5 +73,42 @@ export default Ember.Controller.extend({
       })
       .catch(popupAjaxError)
       .finally(() => this.set("loading", false));
+  },
+
+  isValid() {
+    const fields = this.get("form.fields");
+    const showError = m =>
+      bootbox.alert(I18n.t(`new_topic_form.admin.errors.${m}`));
+    const ids = fields.map(f => f.id.trim());
+
+    const blankIds = ids.filter(id => Ember.isBlank(id));
+
+    if (blankIds.length) {
+      showError("id_required");
+      return false;
+    }
+
+    if (ids.uniq().length < ids.length) {
+      showError("id_not_unique");
+      return false;
+    }
+
+    const blankOptions = fields.filter(f => {
+      if (f.type !== "dropdown") return false;
+
+      const options = f.options
+        .split(",")
+        .map(o => o.trim())
+        .filter(o => !Ember.isBlank(o));
+
+      return options.length < 1;
+    });
+
+    if (blankOptions.length) {
+      showError("options_required");
+      return false;
+    }
+
+    return true;
   }
 });

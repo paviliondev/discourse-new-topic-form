@@ -1,6 +1,10 @@
 en:
   js:
     new_topic_form:
+      upload: "Upload"
+      errors:
+        required: "Cannot be blank"
+        invalid: "Invalid value"
       admin:
         nav_label: "New Topic Form"
         save: "Save"
@@ -16,4 +20,10 @@ en:
         unique_id: "Unique ID"
         required: "Required"
         options: "Options (comma delimited)"
-        regex: "Regex"
+        regexp: "RegExp"
+        regexp_flags: "RegExp flags"
+        placeholder: "Placeholder"
+        errors:
+          id_required: "ID can't be blank"
+          id_not_unique: "Duplicate unique ID"
+          options_required: "Options can't be blank for dropdown type"

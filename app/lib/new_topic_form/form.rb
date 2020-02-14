@@ -2,7 +2,7 @@
 
 module NewTopicForm
   class Form
-    VALID_TYPES = %w[date dropdown tags text textarea upload users]
+    VALID_TYPES = %w[date dropdown text textarea upload users]
 
     attr_accessor :form
 
@@ -16,7 +16,7 @@ module NewTopicForm
       format
 
       @category.custom_fields['new_topic_form'] = @form
-      @category.save_custom_fields(true)
+      @category.save!
     end
 
     def reset
@@ -68,9 +68,10 @@ module NewTopicForm
         'type' => field['type'],
         'required' => cast_boolean(field['required']),
         'options' => field['options'].to_s.split(',').map(&:strip).join(', '),
-        'regex' => field['regex'].to_s.strip
+        'regexp' => field['regexp'].to_s.strip,
+        'regexp_flags' => field['regexp_flags'].to_s.strip,
+        'placeholder' => field['placeholder'].to_s.strip
       }
     end
-
   end
 end

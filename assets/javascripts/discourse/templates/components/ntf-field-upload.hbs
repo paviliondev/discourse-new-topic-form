@@ -1,0 +1,21 @@
+<label class="btn" disabled={{uploading}}>
+  {{d-icon "upload"}}&nbsp;{{btnText}}
+  <input class="hidden-upload-field" disabled={{uploading}} type="file">
+</label>
+
+{{#if uploading}}
+  <span>
+    {{loading-spinner size="small"}}
+    {{uploadProgress}}%
+  </span>
+{{/if}}
+
+{{#if value}}
+  <a href={{value.url}} class="ntf-upload-result">
+    {{#if isImage}}
+      <img src={{value.url}}  class="ntf-upload-img-preview">
+    {{else}}
+      {{value.original_filename}}
+    {{/if}}
+  </a>
+{{/if}}

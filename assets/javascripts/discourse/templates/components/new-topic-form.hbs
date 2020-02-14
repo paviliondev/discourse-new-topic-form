@@ -1,0 +1,9 @@
+{{d-section pageClass="new-topic-form-composer"}}
+
+{{#each model.category.new_topic_form.fields as |f|}}
+  {{#if f.label}}
+    <label>{{f.label}}</label>
+  {{/if}}
+
+  {{ntf-form-field field=f model=model}}
+{{/each}}

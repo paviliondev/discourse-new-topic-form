@@ -1,0 +1,20 @@
+.new-topic-form-composer-page {
+  #reply-control {
+    .composer-fields {
+      flex-grow: 1;
+      overflow-y: auto;
+      overflow-x: hidden;
+    }
+    .wmd-controls, .mobile-preview {
+      display: none;
+    }
+
+    .submit-panel a.mobile-file-upload {
+      display: none;
+    }
+  }
+
+  .new-topic-form {
+
+  }
+}

@@ -6,7 +6,7 @@
       {{category-chooser
         value=categoryId
         options=(hash
-                  allowUncategorized=true
+                  allowUncategorized=false
                   none="new_topic_form.admin.select_category"
                 )
         onChange=(action (mut categoryId))
@@ -23,7 +23,7 @@
             {{i18n "new_topic_form.admin.enabled"}}
           </label>
 
-          <label class="checkbox-label">
+          <label class="checkbox-label hidden">
             {{input
               type="checkbox"
               checked=form.apply_to_subcategories

@@ -1,4 +1,4 @@
-<span class="ntf-remove-field" {{action "removeField"}} title={{i18n "new_topic_form.admin.delete_field"}}>
+<span class="ntf-remove-field" {{action removeField model}} title={{i18n "new_topic_form.admin.delete_field"}}>
   {{d-icon "times"}}
 </span>
 
@@ -31,20 +31,31 @@
     {{i18n "new_topic_form.admin.type"}}
   </label>
 
-  <select onchange={{action (mut model.type) value="target.value"}}>
-    {{#each validTypes as |type|}}
-      <option value={{type}} selected={{ntf-eq model.type type}}>{{type}}</option>
-    {{/each}}
-  </select>
+  {{combo-box
+    id=(concat 'ntf-select-' model.id)
+    content=validTypes
+    value=model.type
+    valueProperty=null
+    nameProperty=null
+    onChange=(action (mut model.type))
+  }}
 </div>
 
-{{#if (ntf-eq model.type "text")}}
+{{#if showRegex}}
   <div class="ntf-row">
     <label>
-      {{i18n "new_topic_form.admin.regex"}}
+      {{i18n "new_topic_form.admin.regexp"}}
     </label>
 
-    {{input type="text" value=model.regex}}
+    {{input type="text" value=model.regexp}}
+  </div>
+
+  <div class="ntf-row">
+    <label>
+      {{i18n "new_topic_form.admin.regexp_flags"}}
+    </label>
+
+    {{input type="text" value=model.regexp_flags}}
   </div>
 {{/if}}
 
@@ -55,5 +66,15 @@
     </label>
 
     {{input type="text" value=model.options}}
+  </div>
+{{/if}}
+
+{{#if showPlaceholder}}
+  <div class="ntf-row">
+    <label>
+      {{i18n "new_topic_form.admin.placeholder"}}
+    </label>
+
+    {{input type="text" value=model.placeholder}}
   </div>
 {{/if}}

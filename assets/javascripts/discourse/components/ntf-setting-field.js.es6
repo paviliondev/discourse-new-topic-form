@@ -1,10 +1,16 @@
+import discourseComputed from "discourse-common/utils/decorators";
+
 export default Ember.Component.extend({
-  validTypes: Ember.String.w("date dropdown tags text textarea upload users"),
+  validTypes: Ember.String.w("date dropdown text textarea upload users"),
   classNames: ["ntf-field"],
 
-  actions: {
-    removeField() {
-      this.sendAction("removeField", this.get("model"));
-    }
+  @discourseComputed("model.type")
+  showRegex(type) {
+    return ["text", "textarea"].includes(type);
+  },
+
+  @discourseComputed("model.type")
+  showPlaceholder(type) {
+    return ["text", "date"].includes(type);
   }
 });

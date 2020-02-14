@@ -1,0 +1,50 @@
+{{#if (ntf-eq field.type "date")}}
+  {{date-picker id=(concat "ntf-" field.id)
+    class="date-input"
+    value=value
+    defaultDate="YYYY-MM-DD"
+    placeholder=field.placeholder
+  }}
+{{/if}}
+
+{{#if (ntf-eq field.type "dropdown")}}
+  {{combo-box
+    id=(concat 'ntf-select-' field.id)
+    content=options
+    value=value
+    valueProperty=null
+    nameProperty=null
+    onChange=(action (mut value))
+  }}
+{{/if}}
+
+{{#if (ntf-eq field.type "text")}}
+  {{input type="text"
+    value=value
+    autocomplete="off"
+    placeholder=field.placeholder
+  }}
+{{/if}}
+
+{{#if (ntf-eq field.type "textarea")}}
+  {{d-editor
+    value=value
+  }}
+{{/if}}
+
+{{#if (ntf-eq field.type "users")}}
+  {{user-selector
+    usernames=value
+    autocomplete="off"
+    class="ntf-user-selector"}}
+{{/if}}
+
+{{#if (ntf-eq field.type "upload")}}
+  {{ntf-field-upload value=value}}
+{{/if}}
+
+{{#if errorMsg}}
+  <div class="ntf-error">
+    {{errorMsg}}
+  </div>
+{{/if}}
