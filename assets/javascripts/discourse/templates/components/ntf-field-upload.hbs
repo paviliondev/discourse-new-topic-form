@@ -11,11 +11,11 @@
 {{/if}}
 
 {{#if value}}
-  <a href={{value.url}} class="ntf-upload-result">
+  <div class="ntf-upload-result" {{action "removeUpload"}}>
     {{#if isImage}}
       <img src={{value.url}}  class="ntf-upload-img-preview">
     {{else}}
       {{value.original_filename}}
     {{/if}}
-  </a>
+  </div>
 {{/if}}

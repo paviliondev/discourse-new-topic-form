@@ -1,0 +1,21 @@
+{{d-button
+  icon="chart-bar"
+  action=(action "createPoll")
+  label="new_topic_form.build_poll"
+}}
+
+{{#if value}}
+  <div class="ntf-poll-result">
+    <div class="ntf-poll-poll">
+      {{value}}
+    </div>
+
+    <div class="ntf-poll-delete">
+      {{d-button
+        icon="times"
+        action=(action "removePoll")
+        class="btn-small"
+      }}
+    </div>
+  </div>
+{{/if}}

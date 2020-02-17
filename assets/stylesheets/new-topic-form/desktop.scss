@@ -17,6 +17,12 @@
   }
 
   .new-topic-form {
-    
+    .ac-wrap {
+      max-width: 50%;
+    }
+
+    input.ntf-text-field {
+      width: 50%;
+    }
   }
 }

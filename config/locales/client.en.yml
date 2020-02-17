@@ -2,6 +2,11 @@ en:
   js:
     new_topic_form:
       upload: "Upload"
+      build_poll: "Build Poll"
+      yay: "Confirm"
+      nay: "Cancel"
+      confirm_delete_poll: "Delete this poll?"
+      confirm_delete_upload: "Delete this upload?"
       errors:
         required: "Cannot be blank"
         invalid: "Invalid value"

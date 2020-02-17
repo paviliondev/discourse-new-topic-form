@@ -23,6 +23,7 @@
     value=value
     autocomplete="off"
     placeholder=field.placeholder
+    class="ntf-text-field"
   }}
 {{/if}}
 
@@ -33,14 +34,20 @@
 {{/if}}
 
 {{#if (ntf-eq field.type "users")}}
-  {{user-selector
-    usernames=value
-    autocomplete="off"
-    class="ntf-user-selector"}}
+  <div class="user-selector">
+    {{user-selector
+      usernames=value
+      autocomplete="off"
+      class="ntf-user-selector"}}
+  </div>
 {{/if}}
 
 {{#if (ntf-eq field.type "upload")}}
   {{ntf-field-upload value=value}}
+{{/if}}
+
+{{#if (ntf-eq field.type "poll")}}
+  {{ntf-field-poll value=value id=field.id}}
 {{/if}}
 
 {{#if errorMsg}}

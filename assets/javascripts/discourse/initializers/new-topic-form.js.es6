@@ -20,39 +20,30 @@ function initWithApi(api) {
     },
 
     newTopicFormData: Ember.Object.create(),
-    newTopicFormErrors: Ember.Object.create(),
-
-    @observes("title", "reply")
-    dataChanged() {
-      if (!this.get("showFields")) {
-        this._super(...arguments);
-      }
-    }
+    newTopicFormErrors: Ember.Object.create()
   });
 
   api.modifyClass("controller:composer", {
     @observes("model.showFields")
-    anu() {
-      if (this.get("model.showFields")) {
-        this.set("showPreview", false);
-        this.set("model.newTopicFormErrors", Ember.Object.create());
+    _ntfSetup() {
+      if (!this.get("model.showFields")) return;
 
-        if (this.get("model.editingFirstPost")) {
-          const result = Ember.Object.create();
+      this.set("showPreview", false);
+      this.set("model.newTopicFormErrors", Ember.Object.create());
 
-          this.ntfFields().forEach(f => {
-            const val = this.get(
-              `model.post.topic.new_topic_form_data.${f.id}`
-            );
+      const result = Ember.Object.create();
 
-            result.set(f.id, val);
-          });
+      if (this.get("model.editingFirstPost")) {
+        this.ntfFields().forEach(f => {
+          const val = this.get(
+            `model.post.topic.new_topic_form_data.${f.id}`
+          );
 
-          this.set("model.newTopicFormData", result);
-        } else {
-          this.set("model.newTopicFormData", Ember.Object.create());
-        }
+          result.set(f.id, val);
+        });
       }
+
+      this.set("model.newTopicFormData", result);
     },
 
     save(force) {
@@ -95,13 +86,13 @@ function initWithApi(api) {
     ntfErrorReason(field) {
       const value = this.getNtfVal(field.id);
 
-      if (field.required && Ember.isBlank(value)) return "required";
+      if (field.required && Ember.isBlank(value)) return "required"; // err
       if (!["text", "textarea"].includes(field.type)) return; // ok
       if (Ember.isBlank(field.regexp)) return; // ok
 
       const regexp = new RegExp(field.regexp, field.regexp_flags);
 
-      if (!regexp.test(value)) return "invalid";
+      if (!regexp.test(value)) return "invalid"; // err
 
       return; // ok
     },
@@ -111,6 +102,7 @@ function initWithApi(api) {
 
       this.ntfFields().forEach(f => {
         let row = "";
+
         if (f.label) {
           row += `**${f.label}**\n`;
         }
@@ -142,7 +134,7 @@ function initWithApi(api) {
         result.push(row);
       });
 
-      console.log(result.join("\n\n"));
+      // console.log(result.join("\n\n"));
 
       this.set("model.reply", result.join("\n\n"));
     },
@@ -153,11 +145,19 @@ function initWithApi(api) {
 
     getNtfVal(id) {
       return this.get(`model.newTopicFormData.${id}`);
-    },
+    }
+  });
 
-    @observes("model.reply", "model.title")
-    _shouldSaveDraft() {
-      if (!this.get("model.showFields")) {
+  api.modifyClass("controller:poll-ui-builder", {
+    actions: {
+      insertPoll() {
+        if (this.get("ntfPoll")) {
+          const pollId = "poll" + this.get("ntfPoll.id");
+          const output = this.pollOutput.replace("\[poll", `[poll name=${pollId}`);
+
+          this.get("ntfPoll").set("value", output);
+        }
+
         this._super(...arguments);
       }
     }
