@@ -1,6 +1,7 @@
 # name: new-topic-form
 # version: 0.1.0
 # author: Muhlis Cahyono (muhlisbc@gmail.com)
+# url: https://github.com/paviliondev/discourse-new-topic-form
 
 %i[common desktop mobile admin].each do |layout|
   register_asset "stylesheets/new-topic-form/#{layout}.scss", layout
