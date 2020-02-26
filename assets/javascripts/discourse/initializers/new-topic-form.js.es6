@@ -86,7 +86,7 @@ function initWithApi(api) {
     ntfErrorReason(field) {
       const value = this.getNtfVal(field.id);
 
-      if (field.required && Ember.isBlank(value)) return "required"; // err
+      if (field.required && (Ember.isBlank(value) || !!!value)) return "required"; // err
       if (!["text", "textarea"].includes(field.type)) return; // ok
       if (Ember.isBlank(field.regexp)) return; // ok
 
@@ -109,7 +109,7 @@ function initWithApi(api) {
 
         const val = this.getNtfVal(f.id);
 
-        if (!val) {
+        if (!val && f.type !== "checkbox") {
           row += "-";
         } else {
           switch (f.type) {
@@ -125,6 +125,11 @@ function initWithApi(api) {
                 .map(u => `@${u}`)
                 .join(" ");
               row += users;
+              break;
+            case "checkbox":
+              row += val ? ":white_check_mark:" : ":x:";
+              row += " ";
+              row += f.placeholder || "";
               break;
             default:
               row += val;

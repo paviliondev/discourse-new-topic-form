@@ -2,7 +2,7 @@
 
 module NewTopicForm
   class Form
-    VALID_TYPES = %w[date dropdown text textarea upload users poll]
+    VALID_TYPES = %w[date dropdown text textarea upload users poll checkbox]
 
     attr_accessor :form
 

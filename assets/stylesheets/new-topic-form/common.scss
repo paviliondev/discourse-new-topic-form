@@ -81,3 +81,10 @@
     }
   }
 }
+
+img.emoji {
+  &[title=':x:'], &[title=':white_check_mark:'] {
+    width: 1em;
+    height: 1em;
+  }
+}

@@ -50,6 +50,17 @@
   {{ntf-field-poll value=value id=field.id}}
 {{/if}}
 
+{{#if (ntf-eq field.type "checkbox")}}
+  <label class="checkbox-label">
+    {{input
+      type="checkbox"
+      checked=value
+    }}
+
+    {{field.placeholder}}
+  </label>
+{{/if}}
+
 {{#if errorMsg}}
   <div class="ntf-error">
     {{errorMsg}}

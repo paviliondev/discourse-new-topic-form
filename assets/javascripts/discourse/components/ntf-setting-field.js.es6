@@ -1,7 +1,7 @@
 import discourseComputed from "discourse-common/utils/decorators";
 
 export default Ember.Component.extend({
-  validTypes: Ember.String.w("date dropdown text textarea upload users poll"),
+  validTypes: Ember.String.w("date dropdown text textarea upload users poll checkbox"),
   classNames: ["ntf-field"],
 
   @discourseComputed("model.type")
@@ -11,6 +11,6 @@ export default Ember.Component.extend({
 
   @discourseComputed("model.type")
   showPlaceholder(type) {
-    return ["text", "date"].includes(type);
+    return ["text", "date", "checkbox"].includes(type);
   }
 });

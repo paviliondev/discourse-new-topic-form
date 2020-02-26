@@ -10,6 +10,12 @@ export default Ember.Component.extend({
     },
 
     set(val) {
+      const type = this.get("field.type");
+
+      if (type === "checkbox") {
+        val = !!val;
+      }
+
       this.get("model.newTopicFormData").set(this.get("field.id"), val);
 
       return val;
