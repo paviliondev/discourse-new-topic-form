@@ -6,13 +6,40 @@
       overflow-x: hidden;
     }
     .wmd-controls {
-      display: none;
+      height: 0;
+      position: inherit;
+
+      .d-editor-textarea-wrapper {
+        display: none;
+      }
+
+      .d-editor-preview-wrapper {
+        position: absolute;
+        right: 22px;
+        bottom: 45px;
+        top: 45px;
+        max-width: 47%;
+        margin-top: 0;
+        left: 50%;
+      }
     }
-    .toggle-preview {
-      display: none;
-    }
+
     .toggle-fullscreen {
       display: none;
+    }
+
+    &.show-preview {
+      .new-topic-form {
+        width: 50%;
+
+        .ac-wrap {
+          max-width: 100%;
+        }
+      }
+
+      .ntf-text-field {
+        width: 100%;
+      }
     }
   }
 

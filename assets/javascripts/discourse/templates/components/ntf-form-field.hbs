@@ -1,10 +1,5 @@
 {{#if (ntf-eq field.type "date")}}
-  {{date-picker id=(concat "ntf-" field.id)
-    class="date-input"
-    value=value
-    defaultDate="YYYY-MM-DD"
-    placeholder=field.placeholder
-  }}
+  {{ntf-field-date value=value}}
 {{/if}}
 
 {{#if (ntf-eq field.type "dropdown")}}

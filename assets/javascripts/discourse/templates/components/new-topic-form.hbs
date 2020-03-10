@@ -2,7 +2,7 @@
 
 {{#each model.category.new_topic_form.fields as |f|}}
   {{#if f.label}}
-    <label>{{f.label}}</label>
+    <div class="ntf-field-label">{{f.label}}</div>
   {{/if}}
 
   {{ntf-form-field field=f model=model}}

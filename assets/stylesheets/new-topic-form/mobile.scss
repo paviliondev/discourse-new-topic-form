@@ -5,8 +5,12 @@
       overflow-y: auto;
       overflow-x: hidden;
     }
-    .wmd-controls, .mobile-preview {
-      display: none;
+    .wmd-controls {
+      height: 0;
+
+      .d-editor-textarea-wrapper {
+        display: none;
+      }
     }
 
     .submit-panel a.mobile-file-upload {

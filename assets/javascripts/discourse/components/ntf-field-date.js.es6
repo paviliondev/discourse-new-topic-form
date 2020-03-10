@@ -2,29 +2,27 @@ import showModal from "discourse/lib/show-modal";
 import { confirmAction } from "../lib/new-topic-form-helper";
 
 export default Ember.Component.extend({
-  classNames: ["ntf-field-poll", "ntf-field-btn"],
+  classNames: ["ntf-field-date", "ntf-field-btn"],
 
   actions: {
-    createPoll() {
-      // :D
+    createdate() {
       const setValue = (val) => {
         this.set("value", val);
       };
 
       const toolbarEvent = {
-        getText() { return ""; },
         addText: setValue
       };
 
-      const modal = showModal("poll-ui-builder");
+      const modal = showModal("discourse-local-dates-create-modal");
 
       modal.setProperties({
         toolbarEvent
       });
     },
 
-    removePoll() {
-      const message = I18n.t("new_topic_form.confirm_delete_poll");
+    removeDate() {
+      const message = I18n.t("new_topic_form.confirm_delete_date");
       const cb = () => this.set("value", null);
 
       confirmAction(message, cb);

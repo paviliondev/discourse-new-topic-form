@@ -3,10 +3,12 @@ en:
     new_topic_form:
       upload: "Upload"
       build_poll: "Build Poll"
+      insert_date: "Insert Date"
       yay: "Confirm"
       nay: "Cancel"
       confirm_delete_poll: "Delete this poll?"
       confirm_delete_upload: "Delete this upload?"
+      confirm_delete_date: "Delete this date?"
       errors:
         required: "Cannot be blank"
         invalid: "Invalid value"

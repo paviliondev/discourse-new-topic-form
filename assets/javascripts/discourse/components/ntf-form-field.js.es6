@@ -17,6 +17,7 @@ export default Ember.Component.extend({
       }
 
       this.get("model.newTopicFormData").set(this.get("field.id"), val);
+      this.get("model").notifyPropertyChange("newTopicFormData");
 
       return val;
     }

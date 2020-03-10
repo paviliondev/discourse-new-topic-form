@@ -1,8 +1,9 @@
 .new-topic-form-composer-page {
-  .composer-fields {
+  .composer-fields, .d-editor-preview-wrapper {
     &::-webkit-scrollbar {
       -webkit-appearance: none;
       width: 5px;
+      height: 5px;
     }
 
     &::-webkit-scrollbar-thumb {
@@ -18,17 +19,28 @@
   }
 
   .new-topic-form {
-    label:not(.btn) {
+    margin-top: 10px;
+
+    .ntf-field-label {
       font-weight: 600;
+      margin-bottom: 5px;
     }
 
     .ntf-form-field {
-      margin-bottom: 7px;
+      margin-bottom: 12px;
       position: relative;
+    }
+
+    .ntf-text-field {
+      margin-bottom: 0;
     }
 
     .d-editor {
       height: 125px;
+
+      .d-editor-preview-wrapper {
+        display: none;
+      }
     }
 
     select {
@@ -50,41 +62,40 @@
       font-size: 90%;
     }
 
-    .ntf-upload-result {
-      margin-top: 10px;
-      display: table;
-      cursor: pointer;
+    .ntf-field-btn {
+      display: flex;
+      align-items: center;
     }
 
-    .ntf-upload-img-preview {
-      width: 125px;
-      height: auto;
-    }
-
-    .ntf-poll-result {
+    .ntf-field-btn-result {
+      flex: 1;
+      margin-left: 10px;
       width: 100%;
       display: flex;
-      margin-top: 10px;
+      word-break: break-all;
     }
 
-    .ntf-poll-poll {
+    .ntf-field-btn-value {
       height: 1.5em;
       overflow: hidden;
       margin-right: 10px;
-      color: $primary-medium;
+      color: $primary-high;
     }
 
-    .ntf-poll-delete .btn {
-      line-height: 1;
-      padding: 5px;
-      min-height: unset;
+    .ntf-field-btn-delete {
+      .btn {
+        line-height: 1;
+        padding: 5px;
+        min-height: unset;
+        margin-right: 5px;
+      }
     }
   }
 }
 
 img.emoji {
   &[title=':x:'], &[title=':white_check_mark:'] {
-    width: 1em;
-    height: 1em;
+    width: 0.8em;
+    height: 0.8em;
   }
 }

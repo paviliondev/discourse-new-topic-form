@@ -6,6 +6,7 @@ import { confirmAction } from "../lib/new-topic-form-helper";
 export default Ember.Component.extend(UploadMixin, {
   type: "composer",
   tagName: "div",
+  classNames: ["ntf-field-upload", "ntf-field-btn"],
 
   uploadDone(upload) {
     this.set("value", upload);

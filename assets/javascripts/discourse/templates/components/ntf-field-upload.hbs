@@ -1,21 +1,29 @@
-<label class="btn" disabled={{uploading}}>
-  {{d-icon "upload"}}&nbsp;{{btnText}}
-  <input class="hidden-upload-field" disabled={{uploading}} type="file">
-</label>
+<div>
+  <label class="btn" disabled={{uploading}}>
+    {{d-icon "upload"}}&nbsp;{{btnText}}
+    <input class="hidden-upload-field" disabled={{uploading}} type="file">
+  </label>
 
-{{#if uploading}}
-  <span>
-    {{loading-spinner size="small"}}
-    {{uploadProgress}}%
-  </span>
-{{/if}}
+  {{#if uploading}}
+    <span>
+      {{loading-spinner size="small"}}
+      {{uploadProgress}}%
+    </span>
+  {{/if}}
+</div>
 
 {{#if value}}
-  <div class="ntf-upload-result" {{action "removeUpload"}}>
-    {{#if isImage}}
-      <img src={{value.url}}  class="ntf-upload-img-preview">
-    {{else}}
+  <div class="ntf-field-btn-result">
+    <div class="ntf-field-btn-value">
       {{value.original_filename}}
-    {{/if}}
+    </div>
+
+    <div class="ntf-field-btn-delete">
+      {{d-button
+        icon="times"
+        action=(action "removeUpload")
+        class="btn-small"
+      }}
+    </div>
   </div>
 {{/if}}

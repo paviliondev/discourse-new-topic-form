@@ -28,7 +28,6 @@ function initWithApi(api) {
     _ntfSetup() {
       if (!this.get("model.showFields")) return;
 
-      this.set("showPreview", false);
       this.set("model.newTopicFormErrors", Ember.Object.create());
 
       const result = Ember.Object.create();
@@ -44,6 +43,13 @@ function initWithApi(api) {
       }
 
       this.set("model.newTopicFormData", result);
+    },
+
+    @observes("model.newTopicFormData")
+    _setReplyFromNtf() {
+      if (!this.get("model.showFields")) return;
+
+      this.ntfCreateReply();
     },
 
     save(force) {
@@ -110,14 +116,11 @@ function initWithApi(api) {
         const val = this.getNtfVal(f.id);
 
         if (!val && f.type !== "checkbox") {
-          row += "-";
+          row += "&ndash;";
         } else {
           switch (f.type) {
             case "upload":
               row += getUploadMarkdown(val);
-              break;
-            case "date":
-              row += `[date=${val} timezone=${moment.tz.guess()}]`;
               break;
             case "users":
               const users = val
@@ -139,8 +142,6 @@ function initWithApi(api) {
         result.push(row);
       });
 
-      // console.log(result.join("\n\n"));
-
       this.set("model.reply", result.join("\n\n"));
     },
 
@@ -150,21 +151,6 @@ function initWithApi(api) {
 
     getNtfVal(id) {
       return this.get(`model.newTopicFormData.${id}`);
-    }
-  });
-
-  api.modifyClass("controller:poll-ui-builder", {
-    actions: {
-      insertPoll() {
-        if (this.get("ntfPoll")) {
-          const pollId = "poll" + this.get("ntfPoll.id");
-          const output = this.pollOutput.replace("\[poll", `[poll name=${pollId}`);
-
-          this.get("ntfPoll").set("value", output);
-        }
-
-        this._super(...arguments);
-      }
     }
   });
 }
