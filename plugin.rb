@@ -1,5 +1,5 @@
 # name: new-topic-form
-# version: 0.1.0
+# version: 0.1.1
 # author: Muhlis Cahyono (muhlisbc@gmail.com)
 # url: https://github.com/paviliondev/discourse-new-topic-form
 
@@ -34,17 +34,25 @@ after_initialize do
       new_topic_form['fields'].present?
   end
 
+  add_to_class(:topic, :new_topic_form_enabled?) do
+    return false if !SiteSetting.new_topic_form_enabled
+    return false if private_message?
+    return false if category.blank?
+
+    category.new_topic_form_enabled
+  end
+
   register_topic_custom_field_type('new_topic_form_data', :json)
 
   add_to_serializer(:topic_view, :new_topic_form_data) {
-    if object.topic.category.new_topic_form_enabled
+    if object.topic.new_topic_form_enabled?
       object.topic.custom_fields['new_topic_form_data'] || {}
     end
   }
 
   add_permitted_post_create_param(:new_topic_form_data)
   PostRevisor.track_topic_field(:new_topic_form_data) do |tc, data|
-    if tc.topic.category.new_topic_form_enabled
+    if tc.topic.new_topic_form_enabled?
       tc.topic.custom_fields['new_topic_form_data'] = data.to_unsafe_hash
     end
   end
@@ -52,7 +60,7 @@ after_initialize do
   on(:topic_created) do |topic, opts, user|
     data = opts[:new_topic_form_data]
 
-    if topic.category.new_topic_form_enabled && data.present?
+    if topic.new_topic_form_enabled? && data.present?
       topic.custom_fields['new_topic_form_data'] = data
       topic.save!
     end
