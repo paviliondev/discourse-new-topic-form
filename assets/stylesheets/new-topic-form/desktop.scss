@@ -4,7 +4,9 @@
       flex-grow: 1;
       overflow-y: auto;
       overflow-x: hidden;
+      width: 50%;
     }
+
     .wmd-controls {
       height: 0;
       position: inherit;
@@ -15,10 +17,10 @@
 
       .d-editor-preview-wrapper {
         position: absolute;
-        right: 22px;
+        right: 10px;
         bottom: 45px;
         top: 45px;
-        max-width: 47%;
+        // max-width: 47%;
         margin-top: 0;
         left: 50%;
       }
@@ -30,7 +32,7 @@
 
     &.show-preview {
       .new-topic-form {
-        width: 50%;
+        // width: 50%;
 
         .ac-wrap {
           max-width: 100%;
@@ -40,6 +42,16 @@
       .ntf-text-field {
         width: 100%;
       }
+    }
+
+    .composer-controls {
+      position: absolute;
+      right: 10px;
+      top: 15px;
+    }
+
+    .title-and-category.with-preview {
+      width: 100%;
     }
   }
 
