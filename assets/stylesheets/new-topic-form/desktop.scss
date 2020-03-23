@@ -4,7 +4,7 @@
       flex-grow: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      width: 50%;
+      // width: 50%;
     }
 
     .wmd-controls {
@@ -26,6 +26,10 @@
       }
     }
 
+    .composer-controls-event .event-label button:last-child {
+      margin-right: 0
+    }
+
     .toggle-fullscreen {
       display: none;
     }
@@ -42,6 +46,10 @@
       .ntf-text-field {
         width: 100%;
       }
+
+      .composer-fields {
+        width: 50%;
+      }
     }
 
     .composer-controls {
@@ -57,11 +65,11 @@
 
   .new-topic-form {
     .ac-wrap {
-      max-width: 50%;
+      max-width: 100%;
     }
 
     input.ntf-text-field {
-      width: 50%;
+      width: 100%;
     }
   }
 }

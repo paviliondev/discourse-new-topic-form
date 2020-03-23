@@ -11,6 +11,6 @@ export default Ember.Component.extend({
 
   @discourseComputed("model.type")
   showPlaceholder(type) {
-    return ["text", "date", "checkbox"].includes(type);
+    return ["text", "checkbox"].includes(type);
   }
 });

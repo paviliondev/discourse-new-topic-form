@@ -8,14 +8,14 @@ module NewTopicForm
 
     def initialize(category)
       @category = category
-      custom_fields = category.custom_fields['new_topic_form']
-      @form = custom_fields.present? ? custom_fields : initialize_form
+      fields = category.new_topic_form
+      @form = fields.present? ? fields : initialize_form
     end
 
     def save
       format
 
-      @category.custom_fields['new_topic_form'] = @form
+      @category.new_topic_form = @form
       @category.save!
     end
 
