@@ -77,3 +77,8 @@
     {{input type="text" value=model.placeholder}}
   </div>
 {{/if}}
+
+{{plugin-outlet
+  name="new-topic-form-field-setting"
+  args=(hash model=model)
+}}

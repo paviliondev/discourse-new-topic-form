@@ -62,7 +62,7 @@ module NewTopicForm
     def fmt_field(field)
       return unless VALID_TYPES.include?(field['type'])
 
-      {
+      result = {
         'id' => field['id'].to_s.strip,
         'label' => field['label'].to_s.strip,
         'type' => field['type'],
@@ -72,6 +72,10 @@ module NewTopicForm
         'regexp_flags' => field['regexp_flags'].to_s.strip,
         'placeholder' => field['placeholder'].to_s.strip
       }
+
+      DiscourseEvent.trigger('new_topic_form_fmt', result, field)
+
+      result
     end
   end
 end

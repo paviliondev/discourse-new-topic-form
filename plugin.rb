@@ -1,5 +1,5 @@
 # name: new-topic-form
-# version: 0.1.4
+# version: 0.1.5
 # author: Muhlis Cahyono (muhlisbc@gmail.com)
 # url: https://github.com/paviliondev/discourse-new-topic-form
 
@@ -15,9 +15,6 @@ after_initialize do
 
   register_svg_icon('far-save')
   register_svg_icon('redo')
-
-  # register_category_custom_field_type('new_topic_form', :json)
-  # Site.preloaded_category_custom_fields << 'new_topic_form'
 
   add_to_serializer(:basic_category, :new_topic_form) do
     return unless object.new_topic_form_enabled?
