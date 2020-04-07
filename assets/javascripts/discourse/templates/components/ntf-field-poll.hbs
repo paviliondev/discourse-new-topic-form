@@ -1,23 +1,52 @@
-<div>
-  {{d-button
-    icon="chart-bar"
-    action=(action "createPoll")
-    label="new_topic_form.build_poll"
-  }}
-</div>
+{{#if editingPoll}}
+  <div class="ntf-poll-textarea">
+    {{textarea value=valueCopy rows=5}}
+  </div>
 
-{{#if value}}
-  <div class="ntf-field-btn-result">
-    <div class="ntf-field-btn-value">
-      {{value}}
-    </div>
+  <div>
+    {{d-button
+      action=(action "savePoll")
+      label="save"
+      class="btn-primary"
+    }}
 
-    <div class="ntf-field-btn-delete">
+    {{d-button
+      action=(action "cancelEditPoll")
+      label="cancel"
+    }}
+  </div>
+{{else}}
+  <div class="ntf-field-poll ntf-field-btn">
+    <div>
       {{d-button
-        icon="times"
-        action=(action "removePoll")
-        class="btn-small"
+        icon="chart-bar"
+        action=(action "createPoll")
+        label="new_topic_form.build_poll"
       }}
     </div>
+
+    {{#if value}}
+      <div class="ntf-field-btn-result">
+        <div class="ntf-field-btn-value">
+          {{value}}
+        </div>
+
+        <div class="ntf-field-btn-delete">
+          {{d-button
+            icon="times"
+            action=(action "removePoll")
+            class="btn-small"
+          }}
+        </div>
+
+        <div class="ntf-field-btn-delete">
+          {{d-button
+            icon="pencil-alt"
+            action=(action "editPoll")
+            class="btn-small"
+          }}
+        </div>
+      </div>
+    {{/if}}
   </div>
 {{/if}}

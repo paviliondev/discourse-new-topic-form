@@ -90,6 +90,15 @@
         margin-right: 5px;
       }
     }
+
+    .ntf-poll-textarea {
+      margin-top: 10px;
+
+      textarea {
+        width: 100%;
+        box-sizing: border-box;
+      }
+    }
   }
 }
 
