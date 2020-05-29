@@ -23,8 +23,9 @@
 {{/if}}
 
 {{#if (ntf-eq field.type "textarea")}}
-  {{d-editor
+  {{ntf-field-textarea
     value=value
+    model=model
   }}
 {{/if}}
 
