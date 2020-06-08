@@ -1,5 +1,5 @@
 # name: new-topic-form
-# version: 0.1.7
+# version: 0.1.8
 # author: Muhlis Cahyono (muhlisbc@gmail.com)
 # url: https://github.com/paviliondev/discourse-new-topic-form
 
