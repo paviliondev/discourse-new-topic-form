@@ -4,6 +4,7 @@ import { popupAjaxError } from "discourse/lib/ajax-error";
 import EmberObject from "@ember/object";
 import { isBlank } from "@ember/utils";
 import Controller from "@ember/controller";
+import { SHOW_REGEX } from "../components/ntf-setting-field";
 
 const DEF_FIELD = {
   id: "",
@@ -142,6 +143,18 @@ export default Controller.extend({
 
     if (blankOptions) {
       return this.showError(blankOptions, "options_required");
+    }
+
+    // validate RegExp flags
+    const invalidFlags = fields.find(f => {
+      if (!SHOW_REGEX.includes(f.type)) return;
+      if (isBlank(f.regexp_flags)) return;
+
+      return /[^gimsuy]/.test(f.regexp_flags);
+    });
+
+    if (invalidFlags) {
+      return this.showError(invalidFlags, "invalid_regexp_flags");
     }
 
     // all good

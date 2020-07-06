@@ -43,7 +43,10 @@
 {{#if showRegex}}
   <div class="ntf-row">
     <label>
-      {{i18n "new_topic_form.admin.regexp"}}
+      <a href="https://javascript.info/regexp-introduction#regular-expressions" target="_blank">
+        {{i18n "new_topic_form.admin.regexp"}}
+        {{d-icon "question-circle"}}
+      </a>
     </label>
 
     {{input type="text" value=model.regexp}}
@@ -51,10 +54,17 @@
 
   <div class="ntf-row">
     <label>
-      {{i18n "new_topic_form.admin.regexp_flags"}}
+      <a href="https://javascript.info/regexp-introduction#flags" target="_blank">
+        {{i18n "new_topic_form.admin.regexp_flags"}}
+        {{d-icon "question-circle"}}
+      </a>
     </label>
 
-    {{input type="text" value=model.regexp_flags}}
+    {{input
+      type="text"
+      value=model.regexp_flags
+      placeholder=(i18n "new_topic_form.admin.regexp_flags_placeholder")
+    }}
   </div>
 {{/if}}
 

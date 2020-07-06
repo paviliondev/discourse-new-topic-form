@@ -30,7 +30,9 @@ en:
         regexp: "RegExp"
         regexp_flags: "RegExp flags"
         placeholder: "Placeholder"
+        regexp_flags_placeholder: "Example: 'i' for case-insensitive"
         errors:
           id_required: "ID can't be blank"
           id_not_unique: "Duplicate unique ID"
           options_required: "Options can't be blank for dropdown type"
+          invalid_regexp_flags: "Invalid RegExp flags"
