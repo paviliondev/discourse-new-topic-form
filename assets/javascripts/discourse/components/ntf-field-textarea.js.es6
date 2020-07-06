@@ -2,8 +2,10 @@ import userSearch from "discourse/lib/user-search";
 import { on } from "discourse-common/utils/decorators";
 import { findRawTemplate } from "discourse-common/lib/raw-templates";
 import { caretPosition, inCodeBlock } from "discourse/lib/utilities";
+import Component from "@ember/component";
+import { schedule } from "@ember/runloop";
 
-export default Ember.Component.extend({
+export default Component.extend({
   userSearchTerm(term) {
     const topicId = this.get("model.topic.id");
     const categoryId =
@@ -30,7 +32,7 @@ export default Ember.Component.extend({
       transformComplete: v => v.username || v.name,
       afterComplete() {
         // ensures textarea scroll position is correct
-        Ember.run.schedule("afterRender", () => $input.blur().focus());
+        schedule("afterRender", () => $input.blur().focus());
       },
       triggerRule: textarea =>
         !inCodeBlock(textarea.value, caretPosition(textarea))

@@ -2,8 +2,11 @@ import UploadMixin from "discourse/mixins/upload";
 import discourseComputed from "discourse-common/utils/decorators";
 import { isImage } from "discourse/lib/uploads";
 import { confirmAction } from "../lib/new-topic-form-helper";
+import Component from "@ember/component";
+import I18n from "I18n";
+import { isBlank } from "@ember/utils";
 
-export default Ember.Component.extend(UploadMixin, {
+export default Component.extend(UploadMixin, {
   type: "composer",
   tagName: "div",
   classNames: ["ntf-field-upload", "ntf-field-btn"],
@@ -14,7 +17,7 @@ export default Ember.Component.extend(UploadMixin, {
 
   @discourseComputed("placeholder")
   btnText(placeholder) {
-    if (!Ember.isBlank(placeholder)) return placeholder;
+    if (!isBlank(placeholder)) return placeholder;
 
     return I18n.t("new_topic_form.upload");
   },

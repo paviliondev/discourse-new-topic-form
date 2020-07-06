@@ -22,9 +22,14 @@
   }
 
   .ntf-field {
-    border-top: 1px solid $primary-low;
+    border: 1px solid $primary-low;
     padding: 1em;
-    background-color: $primary-very-low;
+    margin-bottom: 10px;
+    border-radius: 3px;
+
+    &.error {
+      background-color: $danger-low;
+    }
 
     .ntf-row {
       display: flex;

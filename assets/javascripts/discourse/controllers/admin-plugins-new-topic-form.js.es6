@@ -1,8 +1,23 @@
 import discourseComputed from "discourse-common/utils/decorators";
 import { ajax } from "discourse/lib/ajax";
 import { popupAjaxError } from "discourse/lib/ajax-error";
+import EmberObject from "@ember/object";
+import { isBlank } from "@ember/utils";
+import Controller from "@ember/controller";
 
-export default Ember.Controller.extend({
+const DEF_FIELD = {
+  id: "",
+  label: "",
+  type: "text",
+  required: false,
+  options: "",
+  regexp: "",
+  regexp_flags: "",
+  placeholder: "",
+  isError: false
+};
+
+export default Controller.extend({
   categoryId: null,
   data: null,
 
@@ -10,8 +25,20 @@ export default Ember.Controller.extend({
     this._super(...arguments);
 
     ajax("/new-topic-form/form.json").then(result => {
-      this.set("data", result);
+      const data = result.map(r => this.formatData(r));
+
+      this.set("data", data);
     });
+  },
+
+  createObject(obj) {
+    return EmberObject.create(obj);
+  },
+
+  formatData(data) {
+    data.fields = data.fields.map(f => this.createObject(f));
+
+    return data;
   },
 
   @discourseComputed("categoryId", "data.[]")
@@ -35,18 +62,7 @@ export default Ember.Controller.extend({
     },
 
     addField() {
-      const field = {
-        id: "",
-        label: "",
-        type: "text",
-        required: false,
-        options: "",
-        regexp: "",
-        regexp_flags: "",
-        placeholder: ""
-      };
-
-      this.get("form.fields").addObject(field);
+      this.get("form.fields").addObject(this.createObject(DEF_FIELD));
     },
 
     removeField(field) {
@@ -61,7 +77,7 @@ export default Ember.Controller.extend({
     const opts = { type: type || "GET" };
 
     if (includeForm) {
-      opts.data = { form };
+      opts.data = JSON.parse(JSON.stringify({ form }));
     }
 
     this.set("loading", true);
@@ -69,46 +85,66 @@ export default Ember.Controller.extend({
     ajax(url, opts)
       .then(result => {
         this.get("data").removeObject(form);
-        this.get("data").addObject(result);
+        this.get("data").addObject(this.formatData(result));
       })
       .catch(popupAjaxError)
       .finally(() => this.set("loading", false));
   },
 
+  showError(field, m) {
+    field.set("isError", true);
+    bootbox.alert(I18n.t(`new_topic_form.admin.errors.${m}`));
+
+    return false;
+  },
+
   isValid() {
     const fields = this.get("form.fields");
-    const showError = m =>
-      bootbox.alert(I18n.t(`new_topic_form.admin.errors.${m}`));
-    const ids = fields.map(f => f.id.trim());
 
-    const blankIds = ids.filter(id => Ember.isBlank(id));
+    // clear errors
+    fields.forEach(f => f.set("isError", false));
 
-    if (blankIds.length) {
-      showError("id_required");
-      return false;
+    // check blank id
+    const blankId = fields.find(f => isBlank(f.id));
+
+    if (blankId) {
+      return this.showError(blankId, "id_required");
     }
 
-    if (ids.uniq().length < ids.length) {
-      showError("id_not_unique");
-      return false;
+    // check duplicate id
+    let duplicateId = null;
+    const checkedIds = [];
+
+    fields.forEach(f => {
+      if (checkedIds.includes(f.id) && !duplicateId) {
+        // duplicate
+        duplicateId = f;
+      }
+
+      checkedIds.push(f.id);
+    });
+
+    if (duplicateId) {
+      return this.showError(duplicateId, "id_not_unique");
     }
 
-    const blankOptions = fields.filter(f => {
+    // check blank options
+    const blankOptions = fields.find(f => {
       if (f.type !== "dropdown") return false;
 
       const options = f.options
         .split(",")
         .map(o => o.trim())
-        .filter(o => !Ember.isBlank(o));
+        .filter(o => !isBlank(o));
 
       return options.length < 1;
     });
 
-    if (blankOptions.length) {
-      showError("options_required");
-      return false;
+    if (blankOptions) {
+      return this.showError(blankOptions, "options_required");
     }
 
+    // all good
     return true;
   }
 });

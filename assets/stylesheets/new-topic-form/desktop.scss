@@ -1,10 +1,11 @@
 .new-topic-form-composer-page {
   #reply-control {
+    min-height: 50vh;
+
     .composer-fields {
       flex-grow: 1;
       overflow-y: auto;
       overflow-x: hidden;
-      // width: 50%;
     }
 
     .wmd-controls {
@@ -20,7 +21,6 @@
         right: 10px;
         bottom: 45px;
         top: 45px;
-        // max-width: 47%;
         margin-top: 0;
         left: 50%;
       }
@@ -36,8 +36,6 @@
 
     &.show-preview {
       .new-topic-form {
-        // width: 50%;
-
         .ac-wrap {
           max-width: 100%;
         }

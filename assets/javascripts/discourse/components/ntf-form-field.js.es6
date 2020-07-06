@@ -1,6 +1,8 @@
 import discourseComputed, { observes } from "discourse-common/utils/decorators";
+import Component from "@ember/component";
+import I18n from "I18n";
 
-export default Ember.Component.extend({
+export default Component.extend({
   classNames: ["ntf-form-field"],
 
   @discourseComputed

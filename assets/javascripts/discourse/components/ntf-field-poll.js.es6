@@ -1,20 +1,23 @@
 import showModal from "discourse/lib/show-modal";
 import { confirmAction } from "../lib/new-topic-form-helper";
+import Component from "@ember/component";
+import I18n from "I18n";
 
-export default Ember.Component.extend({
-  // classNames: ["ntf-field-poll", "ntf-field-btn"],
+export default Component.extend({
   editingPoll: false,
 
   actions: {
     createPoll() {
       // :D
-      const setValue = (val) => {
-        this.set("value", val.replace("\[poll", `[poll name=${this.id}`));
+      const setValue = val => {
+        this.set("value", val.replace("[poll", `[poll name=${this.id}`));
         this.set("editingPoll", false);
       };
 
       const toolbarEvent = {
-        getText() { return ""; },
+        getText() {
+          return "";
+        },
         addText: setValue
       };
 

@@ -36,7 +36,13 @@
     margin-bottom: 2em;
   }
 
-  .ntf-field .ntf-remove-field {
-    visibility: visible;
+  .ntf-field {
+    .ntf-remove-field {
+      visibility: visible;
+    }
+
+    .ntf-row label {
+      width: 100px;
+    }
   }
 }

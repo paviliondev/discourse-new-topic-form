@@ -1,3 +1,5 @@
+import I18n from "I18n";
+
 export function confirmAction(message, callback) {
   const i18nPath = "new_topic_form";
   const buttons = [

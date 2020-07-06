@@ -10,7 +10,7 @@ en:
       confirm_delete_upload: "Delete this upload?"
       confirm_delete_date: "Delete this date?"
       errors:
-        required: "Cannot be blank"
+        required: "Can't be blank"
         invalid: "Invalid value"
       admin:
         nav_label: "New Topic Form"

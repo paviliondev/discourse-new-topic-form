@@ -2,6 +2,8 @@ import { withPluginApi } from "discourse/lib/plugin-api";
 import discourseComputed, { observes } from "discourse-common/utils/decorators";
 import Composer from "discourse/models/composer";
 import { getUploadMarkdown } from "discourse/lib/uploads";
+import EmberObject from "@ember/object";
+import { isBlank } from "@ember/utils";
 
 function initWithApi(api) {
   if (!Discourse.SiteSettings.new_topic_form_enabled) return;
@@ -19,8 +21,8 @@ function initWithApi(api) {
       return new_topic_form && (creatingTopic || editingFirstPost);
     },
 
-    newTopicFormData: Ember.Object.create(),
-    newTopicFormErrors: Ember.Object.create()
+    newTopicFormData: EmberObject.create(),
+    newTopicFormErrors: EmberObject.create()
   });
 
   api.modifyClass("controller:composer", {
@@ -28,9 +30,9 @@ function initWithApi(api) {
     _ntfSetup() {
       if (!this.get("model.showFields")) return;
 
-      this.set("model.newTopicFormErrors", Ember.Object.create());
+      this.set("model.newTopicFormErrors", EmberObject.create());
 
-      const result = Ember.Object.create();
+      const result = EmberObject.create();
 
       if (this.get("model.editingFirstPost")) {
         this.ntfFields().forEach(f => {
@@ -73,7 +75,7 @@ function initWithApi(api) {
 
     newTopicFormValid() {
       let isValid = true;
-      const errors = Ember.Object.create();
+      const errors = EmberObject.create();
 
       this.ntfFields().forEach(f => {
         const reason = this.ntfErrorReason(f);
@@ -92,9 +94,9 @@ function initWithApi(api) {
     ntfErrorReason(field) {
       const value = this.getNtfVal(field.id);
 
-      if (field.required && (Ember.isBlank(value) || !!!value)) return "required"; // err
+      if (field.required && (isBlank(value) || !!!value)) return "required"; // err
       if (!["text", "textarea"].includes(field.type)) return; // ok
-      if (Ember.isBlank(field.regexp)) return; // ok
+      if (isBlank(field.regexp)) return; // ok
 
       const regexp = new RegExp(field.regexp, field.regexp_flags);
 
