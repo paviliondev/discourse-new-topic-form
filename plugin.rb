@@ -7,15 +7,23 @@
   register_asset "stylesheets/new-topic-form/#{layout}.scss", layout
 end
 
-require_relative 'lib/new_topic_form'
 enabled_site_setting :new_topic_form_enabled
 
+add_admin_route 'new_topic_form.admin.nav_label', 'new-topic-form'
+
+register_svg_icon('far-save')
+register_svg_icon('redo')
+
 after_initialize do
-  add_admin_route 'new_topic_form.admin.nav_label', 'new-topic-form'
-
-  register_svg_icon('far-save')
-  register_svg_icon('redo')
-
+  %w[
+    ../lib/new_topic_form/engine.rb
+    ../lib/new_topic_form/form.rb
+    ../app/controllers/new_topic_form/form_controller.rb
+    ../config/routes.rb
+  ].each do |path|
+    load File.expand_path(path, __FILE__)
+  end
+  
   add_to_serializer(:basic_category, :new_topic_form) do
     return unless object.new_topic_form_enabled?
 
@@ -34,13 +42,13 @@ after_initialize do
 
       val
     end
+  end
+  
+  add_to_class(:category, :new_topic_form_enabled?) do
+    return false unless new_topic_form.present?
 
-    def new_topic_form_enabled?
-      return false unless new_topic_form.present?
-
-      new_topic_form['enabled'].present? &&
-        new_topic_form['fields'].present?
-    end
+    new_topic_form['enabled'].present? &&
+      new_topic_form['fields'].present?
   end
 
   add_to_class(:topic, :new_topic_form_enabled?) do
