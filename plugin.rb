@@ -70,6 +70,7 @@ after_initialize do
   add_permitted_post_create_param(:new_topic_form_data)
   PostRevisor.track_topic_field(:new_topic_form_data) do |tc, data|
     if tc.topic.new_topic_form_enabled?
+      DiscourseEvent.trigger(:new_topic_form_before_save, data)
       tc.topic.custom_fields['new_topic_form_data'] = data.to_unsafe_hash
     end
   end
