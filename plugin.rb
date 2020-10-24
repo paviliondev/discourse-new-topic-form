@@ -29,19 +29,17 @@ after_initialize do
 
     object.new_topic_form
   end
-
-  class ::Category
-    def new_topic_form
-      @new_topic_form ||= begin
-        PluginStore.get('new_topic_form', id) || {}
-      end
+  
+  add_to_class(:category, :new_topic_form) do
+    @new_topic_form ||= begin
+      PluginStore.get('new_topic_form', id) || {}
     end
+  end
+  
+  add_to_class(:category, :new_topic_form=) do |val|
+    PluginStore.set('new_topic_form', id, val)
 
-    def new_topic_form=(val)
-      PluginStore.set('new_topic_form', id, val)
-
-      val
-    end
+    val
   end
   
   add_to_class(:category, :new_topic_form_enabled?) do
