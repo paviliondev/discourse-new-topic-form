@@ -6,7 +6,8 @@ import EmberObject from "@ember/object";
 import { isBlank } from "@ember/utils";
 
 function initWithApi(api) {
-  if (!Discourse.SiteSettings.new_topic_form_enabled) return;
+  const siteSettings = api._lookupContainer("site-settings:main");
+  if (!siteSettings.new_topic_form_enabled) return;
 
   Composer.serializeOnCreate("new_topic_form_data");
   Composer.serializeToTopic("new_topic_form_data");
