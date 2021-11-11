@@ -5,7 +5,7 @@ import I18n from "I18n";
 export default Component.extend({
   classNames: ["ntf-form-field"],
 
-  @discourseComputed
+  @discourseComputed('model.newTopicFormData')
   value: {
     get() {
       return this.get(`model.newTopicFormData.${this.get("field.id")}`);
