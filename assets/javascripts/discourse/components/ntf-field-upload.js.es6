@@ -1,4 +1,4 @@
-import UploadMixin from "discourse/mixins/upload";
+import UppyUploadMixin from "discourse/mixins/uppy-upload";
 import discourseComputed from "discourse-common/utils/decorators";
 import { isImage } from "discourse/lib/uploads";
 import { confirmAction } from "../lib/new-topic-form-helper";
@@ -6,7 +6,7 @@ import Component from "@ember/component";
 import I18n from "I18n";
 import { isBlank } from "@ember/utils";
 
-export default Component.extend(UploadMixin, {
+export default Component.extend(UppyUploadMixin, {
   type: "composer",
   tagName: "div",
   classNames: ["ntf-field-upload", "ntf-field-btn"],
