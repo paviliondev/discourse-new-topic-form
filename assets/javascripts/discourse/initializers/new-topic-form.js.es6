@@ -13,6 +13,7 @@ function initWithApi(api) {
   Composer.serializeToTopic("new_topic_form_data");
 
   api.modifyClass("model:composer", {
+    pluginId: "discourse-new-topic-form",
     @discourseComputed(
       "category.new_topic_form",
       "creatingTopic",
@@ -27,6 +28,7 @@ function initWithApi(api) {
   });
 
   api.modifyClass("controller:composer", {
+    pluginId: "discourse-new-topic-form",
     @observes("model.showFields")
     _ntfSetup() {
       if (!this.get("model.showFields")) return;

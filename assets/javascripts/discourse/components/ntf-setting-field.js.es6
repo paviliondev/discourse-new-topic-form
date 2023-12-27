@@ -1,5 +1,6 @@
 import discourseComputed from "discourse-common/utils/decorators";
 import Component from "@ember/component";
+import Ember from 'ember';
 
 export const SHOW_REGEX = ["text", "textarea"];
 
